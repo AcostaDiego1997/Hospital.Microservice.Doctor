@@ -29,16 +29,16 @@ namespace Microservice.Doctors.Infrastructure.UnitOfWork
             _transaction = _dataContext.Database.BeginTransaction();
         }
 
-        public void CommitTransaction()
+        public async Task CommitTransactionAsync()
         {
             try
             {
                 _dataContext.SaveChanges();
-                _transaction.Commit();
+                await _transaction.CommitAsync();
             }
             catch (Exception ex)
             {
-                RollBackTransaction();
+                await RollBackTransactionAsync();
                 throw new Exception(ex.Message);
             }
             finally
@@ -58,11 +58,11 @@ namespace Microservice.Doctors.Infrastructure.UnitOfWork
                 _transaction.Dispose();
         }
 
-        public void RollBackTransaction()
+        public async Task RollBackTransactionAsync()
         {
             try
             {
-                _transaction.Rollback();
+                await _transaction.RollbackAsync();
             }
             catch (Exception ex)
             {
@@ -71,9 +71,10 @@ namespace Microservice.Doctors.Infrastructure.UnitOfWork
             }
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
-            _dataContext.SaveChanges();
+            int output = _dataContext.SaveChanges();
+            return output;
         }
     }
 }

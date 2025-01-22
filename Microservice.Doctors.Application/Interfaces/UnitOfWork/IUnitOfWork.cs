@@ -4,10 +4,10 @@ namespace Microservice.Doctors.Application.Interfaces.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        void SaveChanges();
+        int SaveChanges();
         void BeginTransaction();
-        void CommitTransaction();
-        void RollBackTransaction();
+        Task CommitTransactionAsync();
+        Task RollBackTransactionAsync();
 
         IDoctor_Repository Doctor_Repository { get; }
     }

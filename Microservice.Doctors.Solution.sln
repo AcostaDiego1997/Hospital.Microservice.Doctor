@@ -3,13 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Doctors.Api", "Microservice.Doctors.Api\Microservice.Doctors.Api.csproj", "{75ED5BCE-1B1D-438D-B510-63CF5FCF227B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Doctors.Api", "Microservice.Doctors.Api\Microservice.Doctors.Api.csproj", "{75ED5BCE-1B1D-438D-B510-63CF5FCF227B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Doctors.Domain", "Microservice.Doctors.Domain\Microservice.Doctors.Domain.csproj", "{A02982A1-E927-43A4-812E-9A7F88A009A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Doctors.Domain", "Microservice.Doctors.Domain\Microservice.Doctors.Domain.csproj", "{A02982A1-E927-43A4-812E-9A7F88A009A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Doctors.Application", "Microservice.Doctors.Application\Microservice.Doctors.Application.csproj", "{75D1B2BF-A5F3-445B-A222-978958119B69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Doctors.Application", "Microservice.Doctors.Application\Microservice.Doctors.Application.csproj", "{75D1B2BF-A5F3-445B-A222-978958119B69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Doctors.Infrastructure", "Microservice.Doctors.Infrastructure\Microservice.Doctors.Infrastructure.csproj", "{3307C25D-04B0-4B17-A56A-C551F85A929A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Doctors.Infrastructure", "Microservice.Doctors.Infrastructure\Microservice.Doctors.Infrastructure.csproj", "{3307C25D-04B0-4B17-A56A-C551F85A929A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Doctors.Tests", "Microservice.Doctors.Tests\Microservice.Doctors.Tests.csproj", "{08230DEC-1824-4273-A2FD-7FF0DF4BE263}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA1C41AA-1E84-49BB-AAE1-4423C671A8BD}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +40,10 @@ Global
 		{3307C25D-04B0-4B17-A56A-C551F85A929A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3307C25D-04B0-4B17-A56A-C551F85A929A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3307C25D-04B0-4B17-A56A-C551F85A929A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08230DEC-1824-4273-A2FD-7FF0DF4BE263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08230DEC-1824-4273-A2FD-7FF0DF4BE263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08230DEC-1824-4273-A2FD-7FF0DF4BE263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08230DEC-1824-4273-A2FD-7FF0DF4BE263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,7 @@
-﻿using Microservice.Doctors.Application.DTO;
-using Microservice.Doctors.Application.Interfaces.Service;
+﻿using MediatR;
+using Microservice.Doctors.Application.Commands.Request;
+using Microservice.Doctors.Application.DTO;
+using Microservice.Doctors.Application.Queries.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Doctors.Api.Controllers
@@ -8,11 +10,11 @@ namespace Microservice.Doctors.Api.Controllers
     [Route("api/[controller]")]
     public class DoctorController : ControllerBase 
     {
-        private readonly IDoctor_Service _service;
+        private readonly IMediator _mediator;
 
-        public DoctorController(IDoctor_Service doctorService)
+        public DoctorController(IMediator mediator)
         {
-            _service = doctorService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -20,7 +22,8 @@ namespace Microservice.Doctors.Api.Controllers
         {
             try
             {
-                Doctor_DTO? output = _service.GetByCredential(credential);
+                Doctor_DTO? output = await _mediator.Send(new DoctorByCredential_Query(credential));
+
                 return Ok(new
                 {
                     IsSuccess = true,
@@ -43,7 +46,7 @@ namespace Microservice.Doctors.Api.Controllers
         {
             try
             {
-                List<Doctor_DTO> output = _service.GetAll();
+                List<Doctor_DTO> output = await _mediator.Send(new AllDoctors_Query());
                 return Ok(new
                 {
                     IsSuccess = true,
@@ -66,7 +69,8 @@ namespace Microservice.Doctors.Api.Controllers
         {
             try
             {
-                _service.Post(dto);
+                int result = await _mediator.Send(new CreateDoctor_Command(dto));
+
                 return Ok(new
                 {
                     IsSuccess = true,
@@ -89,7 +93,7 @@ namespace Microservice.Doctors.Api.Controllers
         {
             try
             {
-                int? output = _service.Delete(dni);
+                int? output = await _mediator.Send(new DeleteDoctor_Command(credential));
                 return Ok(new
                 {
                     IsSuccess = true,
