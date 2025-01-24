@@ -2,12 +2,14 @@
 using Microservice.Doctors.Application.Commands.Request;
 using Microservice.Doctors.Application.DTO;
 using Microservice.Doctors.Application.Queries.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Doctors.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //[Authorize("CorsPolicy")]
     public class DoctorController : ControllerBase 
     {
         private readonly IMediator _mediator;
