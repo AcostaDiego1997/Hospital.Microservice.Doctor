@@ -22,16 +22,16 @@ namespace Microservice.Doctors.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(int credential)
         {
+            HttpResponse_DTO<Doctor_DTO> response = new();
             try
             {
                 Doctor_DTO? output = await _mediator.Send(new DoctorByCredential_Query(credential));
 
-                return Ok(new
-                {
-                    IsSuccess = true,
-                    Message = (output != null) ? "Doctor obtenido con exito" : "La credencial ingresada no corresponde a ningun doctor",
-                    Entity = output
-                });
+                response.IsSuccess = true;
+                response.Message = (output != null) ? "Doctor obtenido con exito" : "La credencial ingresada no corresponde a ningun doctor";
+                response.Entity = output;
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
