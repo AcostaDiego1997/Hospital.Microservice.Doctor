@@ -35,10 +35,35 @@ namespace Microservice.Doctors.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new
+                return BadRequest(new HttpResponse_DTO<Doctor_DTO>
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = ex.Message,
+                    Entity = new Doctor_DTO()
+                });
+            }
+        }
+        [HttpGet("/summary/{credential}")]
+        public async Task<IActionResult> GetSummary(int credential)
+        {
+            try
+            {
+                DoctorSummary_DTO? output = await _mediator.Send(new DoctorSummary_Query(credential));
+
+                return Ok(new HttpResponse_DTO<DoctorSummary_DTO>
+                {
+                    IsSuccess = true,
+                    Message = (output != null) ? "Doctor obtenido con exito" : "La credencial ingresada no corresponde a ningun doctor",
+                    Entity = output
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new HttpResponse_DTO<DoctorSummary_DTO>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                    Entity = new DoctorSummary_DTO()
                 });
             }
         }
@@ -49,7 +74,8 @@ namespace Microservice.Doctors.Api.Controllers
             try
             {
                 List<Doctor_DTO> output = await _mediator.Send(new AllDoctors_Query());
-                return Ok(new
+
+                return Ok(new HttpResponse_DTO<List<Doctor_DTO>>
                 {
                     IsSuccess = true,
                     Message = "Doctores obtenidos con exito",
@@ -58,10 +84,11 @@ namespace Microservice.Doctors.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new
+                return BadRequest(new HttpResponse_DTO<List<Doctor_DTO>>
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = ex.Message,
+                    Entity= []
                 });
             }
         }
@@ -73,7 +100,7 @@ namespace Microservice.Doctors.Api.Controllers
             {
                 int result = await _mediator.Send(new CreateDoctor_Command(dto));
 
-                return Ok(new
+                return Ok(new HttpResponse_DTO<Doctor_DTO>
                 {
                     IsSuccess = true,
                     Message = "Doctor insertado con exito",
@@ -82,10 +109,11 @@ namespace Microservice.Doctors.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new
+                return BadRequest(new HttpResponse_DTO<Doctor_DTO>
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = ex.Message,
+                    Entity = dto
                 });
             }
         }
@@ -96,7 +124,7 @@ namespace Microservice.Doctors.Api.Controllers
             try
             {
                 int? output = await _mediator.Send(new DeleteDoctor_Command(credential));
-                return Ok(new
+                return Ok(new HttpResponse_DTO<int?>
                 {
                     IsSuccess = true,
                     Message = (output != null) ? "Doctor eliminado exitosamente" : "La credencial ingresada no corresponde a ningun doctor",
@@ -105,10 +133,11 @@ namespace Microservice.Doctors.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new
+                return BadRequest(new HttpResponse_DTO<int>
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = ex.Message,
+                    Entity = credential
                 });
             }
         }

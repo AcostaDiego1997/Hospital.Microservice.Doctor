@@ -71,7 +71,7 @@ namespace Microservice.Doctors.Infrastructure.Repositories
         {
             try
             {
-                int output = _dataContext.Doctors.Where(p => p.Credential == dto.Credential ).Count();
+                int output = _dataContext.Doctors.Where(p => p.Credential == dto.Credential).Count();
 
                 return output;
             }

@@ -35,6 +35,7 @@ namespace Microservice.Doctors.Domain.Doctor
         public int Credential { get => _credential; }
         public string Name { get => _name; }
         public string LastName { get => _lastname; }
+        public string FullName { get => $"{_name} {_lastname}"; }
         public string Specialty { get => _specialty; }
         public bool Status { get => _status; }
         public Email Email { get => _email; }

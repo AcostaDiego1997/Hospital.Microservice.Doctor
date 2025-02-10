@@ -9,6 +9,7 @@ namespace Microservice.Doctors.Api.Configuration
             services.AddAutoMapper(prf =>
             {
                 prf.AddProfile<Doctor_Mapper>();
+                prf.AddProfile<DoctorSummary_Mapper>();
             });
         }
     }

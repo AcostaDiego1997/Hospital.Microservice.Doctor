@@ -69,3 +69,8 @@ $RECYCLE.BIN/
 # Other
 *.vspscc
 *.vssscc
+
+# Ignorar el archivo appsettings de la API
+appsettings.json
+Microservice.Doctors.Api/appsettings*.json
+Microservice.Doctors.Api/Configuration/
