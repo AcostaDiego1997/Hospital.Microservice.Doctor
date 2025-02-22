@@ -4,10 +4,11 @@ using Microservice.Doctors.Application.DTO;
 using Microservice.Doctors.Application.Interfaces.UnitOfWork;
 using Microservice.Doctors.Application.Queries.Request;
 using Microservice.Doctors.Domain.Doctor;
+using System.Threading.Tasks.Dataflow;
 
 namespace Microservice.Doctors.Application.Queries.Handler
 {
-    public class DoctorSummary_QueryHandler : IRequestHandler<DoctorSummary_Query, DoctorSummary_DTO>
+    public class DoctorSummary_QueryHandler : IRequestHandler<DoctorSummary_Query, List<DoctorSummary_DTO>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -18,13 +19,13 @@ namespace Microservice.Doctors.Application.Queries.Handler
             _mapper = mapper;
         }
 
-        public async Task<DoctorSummary_DTO> Handle(DoctorSummary_Query request, CancellationToken cancellationToken)
+        public async Task<List<DoctorSummary_DTO>> Handle(DoctorSummary_Query request, CancellationToken cancellationToken)
         {
             try
             {
-                Doctor doc = _unitOfWork.Doctor_Repository.GetByCredential(request.Credential) ?? throw new Exception($"No existe un doctor con credencial {request.Credential}");
+                List<Doctor> doc = _unitOfWork.Doctor_Repository.GetById(request.Ids) ?? throw new Exception($"No existe un doctor con id {string.Join(",", request.Ids)}");
                
-                DoctorSummary_DTO output = _mapper.Map<DoctorSummary_DTO>(doc);
+                List<DoctorSummary_DTO> output = _mapper.Map<List<DoctorSummary_DTO>>(doc);
 
                 return output;
             }

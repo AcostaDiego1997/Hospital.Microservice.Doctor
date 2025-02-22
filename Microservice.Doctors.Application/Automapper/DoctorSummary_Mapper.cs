@@ -11,7 +11,8 @@ namespace Microservice.Doctors.Application.Automapper
             CreateMap<Doctor, DoctorSummary_DTO>() 
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Credential, opt => opt.MapFrom(src => src.Credential))
-                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName));
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
+                .ForMember(dest => dest.Specialty, opt => opt.MapFrom(src => src.Specialty));
         }
     }
 }

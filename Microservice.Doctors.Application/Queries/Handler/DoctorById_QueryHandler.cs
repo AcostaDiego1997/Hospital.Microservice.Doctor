@@ -7,24 +7,24 @@ using Microservice.Doctors.Domain.Doctor;
 
 namespace Microservice.Doctors.Application.Queries.Handler
 {
-    public class DoctorByCredential_QueryHandler : IRequestHandler<DoctorByCredential_Query, Doctor_DTO>
+    public class DoctorById_QueryHandler : IRequestHandler<DoctorByCredential_Query, GetDoctor_DTO>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public DoctorByCredential_QueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public DoctorById_QueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task<Doctor_DTO> Handle(DoctorByCredential_Query request, CancellationToken cancellationToken)
+        public async Task<GetDoctor_DTO> Handle(DoctorByCredential_Query request, CancellationToken cancellationToken)
         {
             try
             {
-                Doctor doctor = _unitOfWork.Doctor_Repository.GetByCredential(request.Credential) ?? throw new ArgumentException($"No existe un medico con credencial '{request.Credential}'");
+                Doctor doctor = _unitOfWork.Doctor_Repository.GetById(request.Id) ?? throw new ArgumentException($"No existe un medico con id '{request.Id}'");
 
-                Doctor_DTO output = _mapper.Map<Doctor_DTO>(doctor);
+                GetDoctor_DTO output = _mapper.Map<GetDoctor_DTO>(doctor);
 
                 return output;
             }

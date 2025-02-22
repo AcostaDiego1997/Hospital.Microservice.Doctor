@@ -3,7 +3,7 @@ using Microservice.Doctors.Application.DTO;
 
 namespace Microservice.Doctors.Application.Queries.Request
 {
-    public class AllDoctors_Query : IRequest<List<Doctor_DTO>>
+    public class AllDoctors_Query : IRequest<List<GetDoctor_DTO>>
     {
     }
 }

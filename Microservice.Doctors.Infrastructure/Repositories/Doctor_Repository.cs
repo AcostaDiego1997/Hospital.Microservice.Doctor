@@ -66,8 +66,30 @@ namespace Microservice.Doctors.Infrastructure.Repositories
                 throw new Exception(ex.Message);
             }
         }
+        public Doctor? GetById(int id)
+        {
+            try
+            {
+                return _dataContext.Doctors.Where(p => p.Id == id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<Doctor>? GetById(List<int> ids)
+        {
+            try
+            {
+                return _dataContext.Doctors.Where(p => ids.Contains(p.Id)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-        public int UniqueDoctorValidation(Doctor_DTO dto)
+        public int UniqueDoctorValidation(GetDoctor_DTO dto)
         {
             try
             {

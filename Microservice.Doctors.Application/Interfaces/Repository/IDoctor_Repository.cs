@@ -7,8 +7,10 @@ namespace Microservice.Doctors.Application.Interfaces.Repository
     {
         void Add(Doctor doctor);
         Doctor? GetByCredential(int credential);
+        Doctor? GetById(int id);
+        List<Doctor>? GetById(List<int> ids);
         List<Doctor> GetAll();
         int? Delete(int dni);
-        int UniqueDoctorValidation(Doctor_DTO dto);
+        int UniqueDoctorValidation(GetDoctor_DTO dto);
     }
 }

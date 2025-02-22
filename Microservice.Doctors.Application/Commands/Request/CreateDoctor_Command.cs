@@ -15,7 +15,7 @@ namespace Microservice.Doctors.Application.Commands.Request
         public string Phone { get; set; } = null!;
 
         public CreateDoctor_Command() { }
-        public CreateDoctor_Command(Doctor_DTO dto) 
+        public CreateDoctor_Command(PostDoctor_DTO dto) 
         { 
             Credential = dto.Credential;
             Name = dto.Name;

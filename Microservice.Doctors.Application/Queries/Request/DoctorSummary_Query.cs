@@ -3,11 +3,11 @@ using Microservice.Doctors.Application.DTO;
 
 namespace Microservice.Doctors.Application.Queries.Request
 {
-    public class DoctorSummary_Query : IRequest<DoctorSummary_DTO>
+    public class DoctorSummary_Query : IRequest<List<DoctorSummary_DTO>>
     {
-        public int Credential {  get; set; }
+        public List<int> Ids {  get; set; }
 
         public DoctorSummary_Query(){ }
-        public DoctorSummary_Query(int credential) { Credential = credential; }
+        public DoctorSummary_Query(List<int> ids) { Ids = ids; }
     }
 }

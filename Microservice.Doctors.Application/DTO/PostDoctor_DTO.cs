@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Microservice.Doctors.Application.DTO
 {
-    public class Doctor_DTO
+    public class PostDoctor_DTO
     {
         [Required]
         public int Credential { get; set; }
@@ -18,11 +18,10 @@ namespace Microservice.Doctors.Application.DTO
         [Required]
         public string Specialty { get; set; } = null!;
         [Required]
-        public string Email { get; set; } = null!; 
+        public string Email { get; set; } = null!;
         [Required]
         public string Password { get; set; } = null!;
         [Required]
         public string Phone { get; set; } = null!;
-
     }
 }

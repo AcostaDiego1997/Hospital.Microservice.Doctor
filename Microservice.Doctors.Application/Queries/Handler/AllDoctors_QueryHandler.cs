@@ -7,7 +7,7 @@ using Microservice.Doctors.Domain.Doctor;
 
 namespace Microservice.Doctors.Application.Queries.Handler
 {
-    public class AllDoctors_QueryHandler : IRequestHandler<AllDoctors_Query, List<Doctor_DTO>>
+    public class AllDoctors_QueryHandler : IRequestHandler<AllDoctors_Query, List<GetDoctor_DTO>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -19,12 +19,12 @@ namespace Microservice.Doctors.Application.Queries.Handler
         }
 
 
-        public async Task<List<Doctor_DTO>> Handle(AllDoctors_Query request, CancellationToken cancellationToken)
+        public async Task<List<GetDoctor_DTO>> Handle(AllDoctors_Query request, CancellationToken cancellationToken)
         {
             try
             {
                 List<Doctor> doctors = _unitOfWork.Doctor_Repository.GetAll();
-                List<Doctor_DTO> output = _mapper.Map<List<Doctor_DTO>>(doctors);
+                List<GetDoctor_DTO> output = _mapper.Map<List<GetDoctor_DTO>>(doctors);
 
                 return output;
             }

@@ -9,7 +9,6 @@ namespace Microservice.Doctors.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize("CorsPolicy")]
     public class DoctorController : ControllerBase 
     {
         private readonly IMediator _mediator;
@@ -19,13 +18,13 @@ namespace Microservice.Doctors.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get(int credential)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            HttpResponse_DTO<Doctor_DTO> response = new();
+            HttpResponse_DTO<GetDoctor_DTO> response = new();
             try
             {
-                Doctor_DTO? output = await _mediator.Send(new DoctorByCredential_Query(credential));
+                GetDoctor_DTO? output = await _mediator.Send(new DoctorByCredential_Query(id));
 
                 response.IsSuccess = true;
                 response.Message = (output != null) ? "Doctor obtenido con exito" : "La credencial ingresada no corresponde a ningun doctor";
@@ -35,22 +34,22 @@ namespace Microservice.Doctors.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new HttpResponse_DTO<Doctor_DTO>
+                return BadRequest(new HttpResponse_DTO<GetDoctor_DTO>
                 {
                     IsSuccess = false,
                     Message = ex.Message,
-                    Entity = new Doctor_DTO()
+                    Entity = new GetDoctor_DTO()
                 });
             }
         }
-        [HttpGet("/summary/{credential}")]
-        public async Task<IActionResult> GetSummary(int credential)
+        [HttpGet("summaries")]
+        public async Task<IActionResult> GetSummary([FromQuery] List<int> ids)
         {
             try
             {
-                DoctorSummary_DTO? output = await _mediator.Send(new DoctorSummary_Query(credential));
+                List<DoctorSummary_DTO>? output = await _mediator.Send(new DoctorSummary_Query(ids));
 
-                return Ok(new HttpResponse_DTO<DoctorSummary_DTO>
+                return Ok(new HttpResponse_DTO<List<DoctorSummary_DTO>>
                 {
                     IsSuccess = true,
                     Message = (output != null) ? "Doctor obtenido con exito" : "La credencial ingresada no corresponde a ningun doctor",
@@ -59,23 +58,23 @@ namespace Microservice.Doctors.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new HttpResponse_DTO<DoctorSummary_DTO>
+                return BadRequest(new HttpResponse_DTO<List<DoctorSummary_DTO>>
                 {
                     IsSuccess = false,
                     Message = ex.Message,
-                    Entity = new DoctorSummary_DTO()
+                    Entity = []
                 });
             }
         }
 
-        [HttpGet("/all")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                List<Doctor_DTO> output = await _mediator.Send(new AllDoctors_Query());
+                List<GetDoctor_DTO> output = await _mediator.Send(new AllDoctors_Query());
 
-                return Ok(new HttpResponse_DTO<List<Doctor_DTO>>
+                return Ok(new HttpResponse_DTO<List<GetDoctor_DTO>>
                 {
                     IsSuccess = true,
                     Message = "Doctores obtenidos con exito",
@@ -84,7 +83,7 @@ namespace Microservice.Doctors.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new HttpResponse_DTO<List<Doctor_DTO>>
+                return BadRequest(new HttpResponse_DTO<List<GetDoctor_DTO>>
                 {
                     IsSuccess = false,
                     Message = ex.Message,
@@ -94,13 +93,13 @@ namespace Microservice.Doctors.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Doctor_DTO dto)
+        public async Task<IActionResult> Post(PostDoctor_DTO dto)
         {
             try
             {
                 int result = await _mediator.Send(new CreateDoctor_Command(dto));
 
-                return Ok(new HttpResponse_DTO<Doctor_DTO>
+                return Ok(new HttpResponse_DTO<PostDoctor_DTO>
                 {
                     IsSuccess = true,
                     Message = "Doctor insertado con exito",
@@ -109,7 +108,7 @@ namespace Microservice.Doctors.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new HttpResponse_DTO<Doctor_DTO>
+                return BadRequest(new HttpResponse_DTO<PostDoctor_DTO>
                 {
                     IsSuccess = false,
                     Message = ex.Message,
