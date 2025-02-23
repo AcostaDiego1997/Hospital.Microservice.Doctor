@@ -43,11 +43,11 @@ namespace Microservice.Doctors.Api.Controllers
             }
         }
         [HttpGet("summaries")]
-        public async Task<IActionResult> GetSummary([FromQuery] List<int> ids)
+        public async Task<IActionResult> GetSummary([FromQuery] List<int> id)
         {
             try
             {
-                List<DoctorSummary_DTO>? output = await _mediator.Send(new DoctorSummary_Query(ids));
+                List<DoctorSummary_DTO>? output = await _mediator.Send(new DoctorSummary_Query(id));
 
                 return Ok(new HttpResponse_DTO<List<DoctorSummary_DTO>>
                 {
